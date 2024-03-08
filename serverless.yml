@@ -22,6 +22,7 @@ functions:
     handler: wsgi_handler.handler
     events:
       - httpApi: '*'
+    timeout: 29
 
 plugins:
   - serverless-wsgi
