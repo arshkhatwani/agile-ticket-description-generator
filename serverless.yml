@@ -16,6 +16,11 @@ provider:
   name: aws
   runtime: python3.9
   region: us-east-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - bedrock:InvokeModel
+      Resource: arn:aws:bedrock:${self:provider.region}::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0
 
 functions:
   api:
