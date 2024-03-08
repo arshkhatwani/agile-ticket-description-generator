@@ -6,9 +6,9 @@ app = Flask(__name__)
 client = boto3.client('bedrock-runtime')
 
 
-@app.route("/generate")
-def hello_from_root():
-    prompt = request.args.get('prompt')
+@app.route("/generate", methods=['POST'])
+def generate_description():
+    prompt = request.json.get('prompt')
 
     ticket_description_generator = TicketDescriptionGenerator(client)
     response = ticket_description_generator.generate_description(prompt)
