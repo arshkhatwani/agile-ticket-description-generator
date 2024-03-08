@@ -1,0 +1,27 @@
+service: agile-ticket-description-generator
+
+frameworkVersion: '3'
+
+package:
+  patterns:
+    - '!node_modules/**'
+    - '!venv/**'
+    - '!ui/**'
+
+custom:
+  wsgi:
+    app: app.app
+
+provider:
+  name: aws
+  runtime: python3.9
+
+functions:
+  api:
+    handler: wsgi_handler.handler
+    events:
+      - httpApi: '*'
+
+plugins:
+  - serverless-wsgi
+  - serverless-python-requirements
