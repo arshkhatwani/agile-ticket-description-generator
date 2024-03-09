@@ -16,6 +16,8 @@ provider:
   name: aws
   runtime: python3.9
   region: us-east-1
+  httpApi:
+    cors: true
   iamRoleStatements:
     - Effect: Allow
       Action:
