@@ -3,7 +3,7 @@ import PromptOutput from "./components/PromptOutput";
 
 function App() {
     return (
-        <div className="bg-gray-900 min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col">
             <PromptInput />
             <PromptOutput />
         </div>

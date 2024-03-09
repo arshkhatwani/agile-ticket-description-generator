@@ -26,14 +26,14 @@ export default function PromptInput() {
         <div className="w-full flex justify-center my-3">
             <div className="w-[80%] flex gap-2">
                 <textarea
-                    className="text-2xl flex-1 p-3 rounded-lg bg-gray-600 text-white"
+                    className="text-2xl flex-1 p-3 rounded-lg text-white"
                     placeholder="Enter your ticket details"
                     rows={1}
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                 />
                 <button
-                    className="text-xl bg-blue-500 py-1 px-3 text-white rounded-lg"
+                    className="text-xl py-1 px-3 text-white rounded-lg"
                     onClick={onSubmit}>
                     Submit
                 </button>

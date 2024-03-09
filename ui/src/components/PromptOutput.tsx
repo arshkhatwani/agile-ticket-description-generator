@@ -17,7 +17,7 @@ export default function PromptOutput() {
 
     return (
         <div className="mt-6 w-full flex justify-center ">
-            <p className="w-[80%] text-xl p-2 bg-gray-700 rounded-lg">
+            <p className="w-[80%] text-xl p-2 rounded-lg">
                 <Markdown className="prose prose-lg prose-invert">
                     {output}
                 </Markdown>
