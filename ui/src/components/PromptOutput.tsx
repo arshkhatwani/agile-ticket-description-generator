@@ -1,9 +1,19 @@
 import { useRecoilState } from "recoil";
-import { promptOutputState } from "../state/atoms/prompt";
+import { promptLoadingState, promptOutputState } from "../state/atoms/prompt";
 import Markdown from "react-markdown";
+import Loading from "./Loading";
 
 export default function PromptOutput() {
     const [output] = useRecoilState(promptOutputState);
+    const [loading] = useRecoilState(promptLoadingState);
+
+    if (loading) {
+        return <Loading />;
+    }
+
+    if (!output) {
+        return <></>;
+    }
 
     return (
         <div className="mt-6 w-full flex justify-center ">
