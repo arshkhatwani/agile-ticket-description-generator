@@ -6,7 +6,7 @@ function App() {
     return (
         <div className="bg-gray-300 min-h-screen flex flex-col items-center">
             <PromptInput />
-            <PromptOutput result="sample output" />
+            <PromptOutput />
         </div>
     );
 }
