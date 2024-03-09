@@ -1,12 +1,18 @@
 import { useRecoilState } from "recoil";
 import { promptInputState, promptOutputState } from "../state/atoms/prompt";
+import generateDescription from "../api/generateDescription";
 
 export default function PromptInput() {
     const [input, setInput] = useRecoilState(promptInputState);
     const [, setOutput] = useRecoilState(promptOutputState);
 
-    const onSubmit = () => {
-        setOutput("Updated the output!");
+    const onSubmit = async () => {
+        const description = await generateDescription(input);
+        if (!description) {
+            alert("Could not generate description, please try later");
+            return;
+        }
+        setOutput(description);
     };
 
     return (
