@@ -33,3 +33,7 @@ textarea:focus {
 .default-text-color {
     color: var(--text-color);
 }
+
+.output-container {
+    background-color: var(--input-bg);
+}
