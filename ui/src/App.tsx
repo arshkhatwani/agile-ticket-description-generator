@@ -4,7 +4,7 @@ import PromptOutput from "./components/PromptOutput";
 
 function App() {
     return (
-        <div className="bg-gray-300 min-h-screen flex flex-col items-center">
+        <div className="bg-gray-900 min-h-screen flex flex-col">
             <PromptInput />
             <PromptOutput />
         </div>
