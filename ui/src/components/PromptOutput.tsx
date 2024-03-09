@@ -8,7 +8,7 @@ export default function PromptOutput() {
     return (
         <div className="mt-6 w-full flex justify-center">
             <p className="w-5/6 text-xl">
-                <Markdown>{output}</Markdown>
+                <Markdown className="prose prose-lg">{output}</Markdown>
             </p>
         </div>
     );
