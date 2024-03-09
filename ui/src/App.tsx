@@ -1,4 +1,3 @@
-import "./App.css";
 import PromptInput from "./components/PromptInput";
 import PromptOutput from "./components/PromptOutput";
 
