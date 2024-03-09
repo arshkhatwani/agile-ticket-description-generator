@@ -14,8 +14,9 @@ export default function TicketType() {
                         name="story"
                         id="story-ticket"
                         checked={ticketType === "story"}
+                        value="story"
                         className="largerCheckbox hover:cursor-pointer"
-                        onClick={() => setTicketType("story")}
+                        onChange={(e) => setTicketType(e.target.value)}
                     />
                     <label
                         className="hover:cursor-pointer"
@@ -30,8 +31,9 @@ export default function TicketType() {
                         name="task"
                         id="task-ticket"
                         checked={ticketType === "task"}
+                        value="task"
                         className="largerCheckbox hover:cursor-pointer"
-                        onClick={() => setTicketType("task")}
+                        onChange={(e) => setTicketType(e.target.value)}
                     />
                     <label
                         className="hover:cursor-pointer"
