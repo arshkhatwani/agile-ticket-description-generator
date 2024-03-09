@@ -10,6 +10,11 @@ export const promptOutputState = atom({
     default: "",
 });
 
+export const ticketTypeState = atom({
+    key: "ticketType",
+    default: "story",
+});
+
 export const promptLoadingState = atom({
     key: "promptLoading",
     default: false,

@@ -24,3 +24,12 @@ textarea:focus {
 .title-heading {
     color: var(--text-color);
 }
+
+.largerCheckbox {
+    width: 18px;
+    height: 18px;
+}
+
+.default-text-color {
+    color: var(--text-color);
+}
