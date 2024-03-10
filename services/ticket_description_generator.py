@@ -12,7 +12,7 @@ class TicketDescriptionGenerator:
 
     def get_updated_prompt(self, prompt: str, ticket_type: str, additional_details: bool):
         if additional_details == True:
-            prompt = prompt + '\n Include details like what, why if applicable'
+            prompt = prompt + "\n Include specific details under headings such as 'What' to describe the objective of each task, and 'Why' to provide rationale or user benefit where applicable."
 
         if ticket_type in ('story', 'task'):
             prompt = f'Write an agile {ticket_type} description for the following content \n\n' + prompt
