@@ -17,6 +17,8 @@ class TicketDescriptionGenerator:
         if ticket_type in ('story', 'task'):
             prompt = f'Write an agile {ticket_type} description for the following content \n\n' + prompt
 
+        print('Updated prompt:', prompt)
+
         return prompt
 
     def generate_description(self, prompt: str, ticket_type: str, additional_details: bool):
@@ -24,6 +26,7 @@ class TicketDescriptionGenerator:
         prompt = self.get_updated_prompt(
             prompt, ticket_type, additional_details)
 
+        print('Invoking model')
         response = self.model.invoke_model(
             system_role=system_role,
             prompt=prompt
@@ -31,6 +34,7 @@ class TicketDescriptionGenerator:
         if response == {}:
             return ''
 
+        print('Received response successfully')
         completion = response["content"][0]['text']
 
         return completion

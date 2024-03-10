@@ -12,6 +12,10 @@ def generate_description():
     ticket_type = request.json.get('ticket_type', 'story')
     additional_details = request.json.get('additional_details', False)
 
+    print('prompt:', prompt)
+    print('ticket_type:', ticket_type)
+    print('additional_details:', additional_details)
+
     ticket_description_generator = TicketDescriptionGenerator(client)
     response = ticket_description_generator.generate_description(
         prompt, ticket_type, additional_details)

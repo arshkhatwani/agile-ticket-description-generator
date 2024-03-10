@@ -35,7 +35,8 @@ class ClaudeV3:
             )
             response_body = json.loads(response["body"].read())
         except Exception as e:
-            print("Couldn't invoke Anthropic Claude due to exception:", str(e))
+            print(
+                "Couldn't invoke Anthropic Claude due to exception:", str(e))
             response_body = {}
 
         return response_body
