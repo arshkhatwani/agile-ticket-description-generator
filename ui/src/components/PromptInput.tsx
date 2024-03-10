@@ -1,5 +1,6 @@
 import { useRecoilState } from "recoil";
 import {
+    additionalDetailsState,
     promptInputState,
     promptLoadingState,
     promptOutputState,
@@ -7,16 +8,22 @@ import {
 } from "../state/atoms/prompt";
 import generateDescription from "../api/generateDescription";
 import TicketType from "./TicketType";
+import AdditonalDetails from "./AdditonalDetails";
 
 export default function PromptInput() {
     const [input, setInput] = useRecoilState(promptInputState);
     const [, setOutput] = useRecoilState(promptOutputState);
     const [, setLoading] = useRecoilState(promptLoadingState);
     const [ticketType] = useRecoilState(ticketTypeState);
+    const [additionalDetails] = useRecoilState(additionalDetailsState);
 
     const onSubmit = async () => {
         setLoading(true);
-        const description = await generateDescription(input, ticketType);
+        const description = await generateDescription(
+            input,
+            ticketType,
+            additionalDetails
+        );
         if (!description) {
             alert("Could not generate description, please try later");
             return;
@@ -43,6 +50,7 @@ export default function PromptInput() {
             </div>
 
             <TicketType />
+            <AdditonalDetails />
         </div>
     );
 }

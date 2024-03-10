@@ -19,3 +19,8 @@ export const promptLoadingState = atom({
     key: "promptLoading",
     default: false,
 });
+
+export const additionalDetailsState = atom({
+    key: "ticketAdditionalDetails",
+    default: false,
+});
