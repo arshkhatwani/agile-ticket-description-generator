@@ -10,10 +10,11 @@ client = boto3.client('bedrock-runtime')
 def generate_description():
     prompt = request.json.get('prompt')
     ticket_type = request.json.get('ticket_type', 'story')
+    additional_details = request.json.get('additional_details', False)
 
     ticket_description_generator = TicketDescriptionGenerator(client)
     response = ticket_description_generator.generate_description(
-        prompt, ticket_type)
+        prompt, ticket_type, additional_details)
 
     return jsonify(message=response)
 
