@@ -13,7 +13,7 @@ import AdditonalDetails from "./AdditonalDetails";
 export default function PromptInput() {
     const [input, setInput] = useRecoilState(promptInputState);
     const [, setOutput] = useRecoilState(promptOutputState);
-    const [, setLoading] = useRecoilState(promptLoadingState);
+    const [loading, setLoading] = useRecoilState(promptLoadingState);
     const [ticketType] = useRecoilState(ticketTypeState);
     const [additionalDetails] = useRecoilState(additionalDetailsState);
 
@@ -43,7 +43,11 @@ export default function PromptInput() {
                     onChange={(e) => setInput(e.target.value)}
                 />
                 <button
-                    className="text-xl py-1 px-3 default-text-color rounded-lg"
+                    className={
+                        "text-xl py-1 px-3 default-text-color rounded-lg" +
+                        (loading ? " cursor-not-allowed" : "")
+                    }
+                    disabled={loading}
                     onClick={onSubmit}>
                     Submit
                 </button>
