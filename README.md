@@ -93,3 +93,17 @@ Start application
 ```bash
 npm run dev
 ```
+
+### Deployment for UI
+
+Build the application in `ui/` directory
+
+```bash
+npm run build
+```
+
+Navigate to root directory and deploy
+
+```bash
+sls client deploy -c serverless_ui.yml
+```

@@ -1,0 +1,19 @@
+service: agile-ticket-description-generator-client
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+
+plugins:
+  - serverless-finch
+
+custom:
+  client:
+    bucketName: agile-ticket-description-generator-client-bucket
+    distributionFolder: ui/dist
+    indexDocument: index.html
+    errorDocument: index.html
+  
