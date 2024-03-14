@@ -41,6 +41,23 @@ export default function TicketType() {
                         Task
                     </label>
                 </div>
+
+                <div className="flex gap-2 items-center">
+                    <input
+                        type="checkbox"
+                        name="epic"
+                        id="epic-ticket"
+                        checked={ticketType === "epic"}
+                        value="epic"
+                        className="largerCheckbox hover:cursor-pointer"
+                        onChange={(e) => setTicketType(e.target.value)}
+                    />
+                    <label
+                        className="hover:cursor-pointer"
+                        htmlFor="epic-ticket">
+                        Epic
+                    </label>
+                </div>
             </div>
         </div>
     );

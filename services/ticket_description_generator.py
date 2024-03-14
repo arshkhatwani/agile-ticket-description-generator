@@ -1,5 +1,6 @@
 from ai_models.claude_v3 import ClaudeV3
 
+ACCEPTED_TICKET_TYPES = ('story', 'task', 'epic')
 
 class TicketDescriptionGenerator:
     def __init__(self, client):
@@ -14,7 +15,7 @@ class TicketDescriptionGenerator:
         if additional_details == True:
             prompt = prompt + "\n Include specific details under headings such as 'What' to describe the objective of each task, and 'Why' to provide rationale or user benefit where applicable."
 
-        if ticket_type in ('story', 'task'):
+        if ticket_type in ACCEPTED_TICKET_TYPES:
             prompt = f'Write an agile {ticket_type} description for the following content \n\n' + prompt
 
         print('Updated prompt:', prompt)
