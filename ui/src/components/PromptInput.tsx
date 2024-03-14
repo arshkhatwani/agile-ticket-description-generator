@@ -9,6 +9,7 @@ import {
 import generateDescription from "../api/generateDescription";
 import TicketType from "./TicketType";
 import AdditonalDetails from "./AdditonalDetails";
+import PromptInputTooltip from "./PromptInputTooltip";
 
 export default function PromptInput() {
     const [input, setInput] = useRecoilState(promptInputState);
@@ -18,6 +19,8 @@ export default function PromptInput() {
     const [additionalDetails] = useRecoilState(additionalDetailsState);
 
     const onSubmit = async () => {
+        if (loading) return;
+
         setLoading(true);
         const description = await generateDescription(
             input,
@@ -41,6 +44,12 @@ export default function PromptInput() {
                     rows={1}
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter" && !e.shiftKey) {
+                            e.preventDefault();
+                            onSubmit();
+                        }
+                    }}
                 />
                 <button
                     className={
@@ -52,6 +61,7 @@ export default function PromptInput() {
                     Submit
                 </button>
             </div>
+            <PromptInputTooltip />
 
             <TicketType />
             <AdditonalDetails />
