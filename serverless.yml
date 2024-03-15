@@ -19,10 +19,7 @@ provider:
   httpApi:
     cors: true
   iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - bedrock:InvokeModel
-      Resource: arn:aws:bedrock:${self:provider.region}::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0
+    - ${file(iam/BedrockModelIAM.yml):BedrockModelIAM}
 
 functions:
   api:
