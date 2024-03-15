@@ -42,6 +42,12 @@ functions:
     events:
       - httpApi: '*'
     timeout: 29
+  promptLogHandler:
+    handler: functions/prompt_log_handler.handler
+    events:
+      - sqs:
+          batchSize: 1
+          arn: ${self:custom.PromptLogsQueue.arn}
 
 plugins:
   - serverless-wsgi
