@@ -11,6 +11,13 @@ package:
 custom:
   wsgi:
     app: app.app
+  PromptLogsTable:
+    name: !Ref PromptLogsTable
+    arn: !GetAtt PromptLogsTable.Arn
+  PromptLogsQueue:
+    name: !Ref PromptLogsQueue
+    arn: !GetAtt PromptLogsQueue.Arn
+    url: !GetAtt PromptLogsQueue.QueueUrl
 
 provider:
   name: aws
@@ -21,6 +28,11 @@ provider:
     cors: true
   iamRoleStatements:
     - ${file(iam/BedrockModelIAM.yml):BedrockModelIAM}
+
+resources:
+  Resources:
+    PromptLogsTable: ${file(resources/PromptLogsTable.yml):PromptLogsTable}
+    PromptLogsQueue: ${file(resources/PromptLogsQueue.yml):PromptLogsQueue}
 
 functions:
   api:
