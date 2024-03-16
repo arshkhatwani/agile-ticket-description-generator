@@ -6,6 +6,7 @@ logger.setLevel("INFO")
 
 ACCEPTED_TICKET_TYPES = ('story', 'task', 'epic')
 
+
 class TicketDescriptionGenerator:
     def __init__(self, client):
         self.client = client
@@ -37,9 +38,9 @@ class TicketDescriptionGenerator:
             prompt=prompt
         )
         if response == {}:
-            return ''
+            return prompt, ''
 
         logger.info('Received response successfully')
         completion = response["content"][0]['text']
 
-        return completion
+        return prompt, completion

@@ -2,6 +2,7 @@ from flask import Flask, jsonify, make_response, request
 import boto3
 import logging
 from services.ticket_description_generator import TicketDescriptionGenerator
+from services.prompt_logs_queue import PromptLogsQueue
 
 logger = logging.getLogger()
 logger.setLevel("INFO")
@@ -21,10 +22,13 @@ def generate_description():
     logger.info('additional_details: %s', additional_details)
 
     ticket_description_generator = TicketDescriptionGenerator(client)
-    response = ticket_description_generator.generate_description(
+    prompt, output = ticket_description_generator.generate_description(
         prompt, ticket_type, additional_details)
 
-    return jsonify(message=response)
+    prompt_logs_queue = PromptLogsQueue()
+    prompt_logs_queue.send_message(prompt, output)
+
+    return jsonify(message=output)
 
 
 @app.errorhandler(404)
