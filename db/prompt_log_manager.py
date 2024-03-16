@@ -1,5 +1,6 @@
 import uuid
 import logging
+from datetime import datetime
 
 logger = logging.getLogger()
 logger.setLevel("INFO")
@@ -15,7 +16,8 @@ class PromptLogManager:
             record = {
                 'id': str(uuid.uuid4()),
                 'prompt': prompt,
-                'output': output
+                'output': output,
+                'created_at': str(datetime.now().isoformat())
             }
             logger.info('Inserting record: %s', record)
 
