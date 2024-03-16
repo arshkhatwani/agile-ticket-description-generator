@@ -48,6 +48,8 @@ functions:
       - sqs:
           batchSize: 1
           arn: ${self:custom.PromptLogsQueue.arn}
+    environment:
+      PROMPT_LOGS_TABLE: ${self:custom.PromptLogsTable.name}
 
 plugins:
   - serverless-wsgi
