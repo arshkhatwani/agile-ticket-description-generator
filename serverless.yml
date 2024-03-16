@@ -30,6 +30,7 @@ provider:
     role:
       statements:
         - ${file(iam/BedrockModelIAM.yml):BedrockModelIAM}
+        - ${file(iam/PromptLogsTableIAM.yml):PromptLogsTableIAM}
 
 resources:
   Resources:
