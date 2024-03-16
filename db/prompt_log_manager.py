@@ -11,7 +11,7 @@ class PromptLogManager:
         self.dynamodb = dynamodb
         self.table = table
 
-    def insert_record(self, prompt, output):
+    def insert_record(self, prompt: str, output: str):
         try:
             record = {
                 'id': str(uuid.uuid4()),

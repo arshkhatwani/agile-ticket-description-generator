@@ -13,7 +13,7 @@ class PromptLogsQueue:
     def __init__(self):
         self.sqs = boto3.client('sqs')
 
-    def send_message(self, prompt, output):
+    def send_message(self, prompt: str, output: str):
         message_body = json.dumps({"prompt": prompt, "output": output})
 
         logger.info('Sending message (%s) to Prompt Logs Queue', message_body)
