@@ -11,6 +11,13 @@ package:
 custom:
   wsgi:
     app: app.app
+  PromptLogsTable:
+    name: !Ref PromptLogsTable
+    arn: !GetAtt PromptLogsTable.Arn
+  PromptLogsQueue:
+    name: !Ref PromptLogsQueue
+    arn: !GetAtt PromptLogsQueue.Arn
+    url: !GetAtt PromptLogsQueue.QueueUrl
 
 provider:
   name: aws
@@ -19,8 +26,17 @@ provider:
   region: us-east-1
   httpApi:
     cors: true
-  iamRoleStatements:
-    - ${file(iam/BedrockModelIAM.yml):BedrockModelIAM}
+  iam:
+    role:
+      statements:
+        - ${file(iam/BedrockModelIAM.yml):BedrockModelIAM}
+        - ${file(iam/PromptLogsTableIAM.yml):PromptLogsTableIAM}
+        - ${file(iam/PromptLogsQueueIAM.yml):PromptLogsQueueIAM}
+
+resources:
+  Resources:
+    PromptLogsTable: ${file(resources/PromptLogsTable.yml):PromptLogsTable}
+    PromptLogsQueue: ${file(resources/PromptLogsQueue.yml):PromptLogsQueue}
 
 functions:
   api:
@@ -28,6 +44,16 @@ functions:
     events:
       - httpApi: '*'
     timeout: 29
+    environment:
+      PROMPT_LOGS_QUEUE_URL: ${self:custom.PromptLogsQueue.url}
+  promptLogHandler:
+    handler: functions/prompt_log_handler.handler
+    events:
+      - sqs:
+          batchSize: 1
+          arn: ${self:custom.PromptLogsQueue.arn}
+    environment:
+      PROMPT_LOGS_TABLE: ${self:custom.PromptLogsTable.name}
 
 plugins:
   - serverless-wsgi

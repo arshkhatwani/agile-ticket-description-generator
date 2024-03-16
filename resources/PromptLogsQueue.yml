@@ -1,0 +1,4 @@
+PromptLogsQueue:
+  Type: AWS::SQS::Queue
+  Properties:
+    QueueName: PromptLogsQueue-${self:provider.stage}

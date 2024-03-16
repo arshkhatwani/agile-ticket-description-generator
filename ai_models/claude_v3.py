@@ -1,4 +1,8 @@
 import json
+import logging
+
+logger = logging.getLogger()
+logger.setLevel("INFO")
 
 
 class ClaudeV3:
@@ -35,8 +39,8 @@ class ClaudeV3:
             )
             response_body = json.loads(response["body"].read())
         except Exception as e:
-            print(
-                "Couldn't invoke Anthropic Claude due to exception:", str(e))
+            logger.exception(
+                "Couldn't invoke Anthropic Claude due to exception: %s", str(e))
             response_body = {}
 
         return response_body

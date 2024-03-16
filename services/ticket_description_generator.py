@@ -1,6 +1,11 @@
+import logging
 from ai_models.claude_v3 import ClaudeV3
 
+logger = logging.getLogger()
+logger.setLevel("INFO")
+
 ACCEPTED_TICKET_TYPES = ('story', 'task', 'epic')
+
 
 class TicketDescriptionGenerator:
     def __init__(self, client):
@@ -18,7 +23,7 @@ class TicketDescriptionGenerator:
         if ticket_type in ACCEPTED_TICKET_TYPES:
             prompt = f'Write an agile {ticket_type} description for the following content \n\n' + prompt
 
-        print('Updated prompt:', prompt)
+        logger.info('Updated prompt: %s', prompt)
 
         return prompt
 
@@ -27,15 +32,15 @@ class TicketDescriptionGenerator:
         prompt = self.get_updated_prompt(
             prompt, ticket_type, additional_details)
 
-        print('Invoking model')
+        logger.info('Invoking model')
         response = self.model.invoke_model(
             system_role=system_role,
             prompt=prompt
         )
         if response == {}:
-            return ''
+            return prompt, ''
 
-        print('Received response successfully')
+        logger.info('Received response successfully')
         completion = response["content"][0]['text']
 
-        return completion
+        return prompt, completion
