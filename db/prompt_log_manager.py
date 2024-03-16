@@ -17,7 +17,7 @@ class PromptLogManager:
                 'prompt': prompt,
                 'output': output
             }
-            logger.info('Inserting record:', record)
+            logger.info('Inserting record: %s', record)
 
             response = self.table.put_item(Item=record)
             logger.info('Record inserted successfully')
