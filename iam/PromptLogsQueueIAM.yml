@@ -1,0 +1,5 @@
+PromptLogsQueueIAM:
+  Effect: Allow
+  Action:
+    - sqs:SendMessage
+  Resource: ${self:custom.PromptLogsQueue.arn}

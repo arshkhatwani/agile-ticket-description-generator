@@ -31,6 +31,7 @@ provider:
       statements:
         - ${file(iam/BedrockModelIAM.yml):BedrockModelIAM}
         - ${file(iam/PromptLogsTableIAM.yml):PromptLogsTableIAM}
+        - ${file(iam/PromptLogsQueueIAM.yml):PromptLogsQueueIAM}
 
 resources:
   Resources:
@@ -43,6 +44,8 @@ functions:
     events:
       - httpApi: '*'
     timeout: 29
+    environment:
+      PROMPT_LOGS_QUEUE_URL: ${self:custom.PromptLogsQueue.url}
   promptLogHandler:
     handler: functions/prompt_log_handler.handler
     events:
