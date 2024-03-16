@@ -16,8 +16,11 @@ class PromptLogsQueue:
     def send_message(self, prompt, output):
         message_body = json.dumps({"prompt": prompt, "output": output})
 
+        logger.info('Sending message (%s) to Prompt Logs Queue', message_body)
         response = self.sqs.send_message(
             QueueUrl=PROMPT_LOGS_QUEUE_URL,
             MessageBody=message_body
         )
+        logger.info('Sent message successfully')
+
         return response
