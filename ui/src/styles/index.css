@@ -42,3 +42,8 @@ textarea:focus {
 .output-container {
     background-color: var(--color-2);
 }
+
+.enabled-toggle-btn {
+    border-color: var(--color-3);
+    color: var(--color-3);
+}
