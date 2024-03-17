@@ -1,5 +1,6 @@
 import { useRecoilState } from "recoil";
 import { additionalDetailsState } from "../state/atoms/prompt";
+import ToggleBtn from "./ToggleBtn";
 
 export default function AdditonalDetails() {
     const [additionalDetails, setAdditionalDetails] = useRecoilState(
@@ -8,19 +9,12 @@ export default function AdditonalDetails() {
 
     return (
         <div className="my-2 w-[80%] flex items-center gap-3 text-xl default-text-color">
-            <input
-                type="checkbox"
-                name="additional-details"
-                id="additional-details-ticket"
-                checked={additionalDetails === true}
-                className="largerCheckbox hover:cursor-pointer"
-                onChange={(e) => setAdditionalDetails(e.target.checked)}
+            <ToggleBtn
+                value={true}
+                current={additionalDetails}
+                label="Include details like what, why (if applicable)"
+                onClick={() => setAdditionalDetails((prev) => !prev)}
             />
-            <label
-                className="hover:cursor-pointer"
-                htmlFor="additional-details-ticket">
-                Include details like what, why (if applicable)
-            </label>
         </div>
     );
 }
