@@ -3,26 +3,26 @@
 @tailwind utilities;
 
 :root {
-    --body-bg: #222831;
-    --input-bg: #31363f;
-    --text-color: #eeeeee;
-    --border-color: #76abae;
+    --color-1: #0a0a0a;
+    --color-2: #221f1f;
+    --color-3: #ffb14b;
+    --color-4: #eeeeee;
 }
 
 body {
-    background-color: var(--body-bg);
+    background-color: var(--color-1);
 }
 
 textarea {
-    background-color: var(--input-bg);
-    color: var(--text-color);
+    background-color: var(--color-2);
+    color: var(--color-4);
 }
 textarea:focus {
-    outline-color: var(--border-color);
+    outline-color: var(--color-3);
 }
 
 .title-heading {
-    color: var(--text-color);
+    color: var(--color-3);
 }
 
 .largerCheckbox {
@@ -31,9 +31,9 @@ textarea:focus {
 }
 
 .default-text-color {
-    color: var(--text-color);
+    color: var(--color-4);
 }
 
 .output-container {
-    background-color: var(--input-bg);
+    background-color: var(--color-2);
 }
