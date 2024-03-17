@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,6 +8,10 @@
     --color-2: #221f1f;
     --color-3: #ffb14b;
     --color-4: #eeeeee;
+}
+
+* {
+    font-family: "Plus Jakarta Sans", sans-serif;
 }
 
 body {
