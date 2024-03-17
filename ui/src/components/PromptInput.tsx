@@ -19,6 +19,7 @@ export default function PromptInput() {
     const [additionalDetails] = useRecoilState(additionalDetailsState);
 
     const onSubmit = async () => {
+        if (input.trim() === "") return;
         if (loading) return;
 
         setLoading(true);
