@@ -11,7 +11,7 @@ import TicketType from "./TicketType";
 import AdditonalDetails from "./AdditonalDetails";
 import PromptInputTooltip from "./PromptInputTooltip";
 import iconPaths from "../constants/iconPaths";
-import SubmitBtnLoading from "./submitBtnLoading";
+import SubmitBtnLoading from "./SubmitBtnLoading";
 
 export default function PromptInput() {
     const [input, setInput] = useRecoilState(promptInputState);
