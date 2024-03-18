@@ -10,6 +10,8 @@ import generateDescription from "../api/generateDescription";
 import TicketType from "./TicketType";
 import AdditonalDetails from "./AdditonalDetails";
 import PromptInputTooltip from "./PromptInputTooltip";
+import iconPaths from "../constants/iconPaths";
+import SubmitBtnLoading from "./SubmitBtnLoading";
 
 export default function PromptInput() {
     const [input, setInput] = useRecoilState(promptInputState);
@@ -19,6 +21,7 @@ export default function PromptInput() {
     const [additionalDetails] = useRecoilState(additionalDetailsState);
 
     const onSubmit = async () => {
+        if (input.trim() === "") return;
         if (loading) return;
 
         setLoading(true);
@@ -37,9 +40,9 @@ export default function PromptInput() {
 
     return (
         <div className="w-full flex flex-col items-center my-3">
-            <div className="w-[80%] flex gap-2">
+            <div className="w-[80%] flex gap-2 input-container rounded-lg p-2">
                 <textarea
-                    className="text-2xl flex-1 p-3 rounded-lg default-text-color"
+                    className="flex-1 text-2xl p-3 rounded-lg default-text-color"
                     placeholder="Enter your ticket details"
                     rows={1}
                     value={input}
@@ -51,14 +54,19 @@ export default function PromptInput() {
                         }
                     }}
                 />
+
                 <button
                     className={
-                        "text-xl py-1 px-3 default-text-color rounded-lg" +
+                        "submit-btn-bg rounded-full flex justify-center items-center size-12 my-auto" +
                         (loading ? " cursor-not-allowed" : "")
                     }
                     disabled={loading}
                     onClick={onSubmit}>
-                    Submit
+                    {loading ? (
+                        <SubmitBtnLoading />
+                    ) : (
+                        <img src={iconPaths.SEND_ICON} className="size-6" />
+                    )}
                 </button>
             </div>
             <PromptInputTooltip />
