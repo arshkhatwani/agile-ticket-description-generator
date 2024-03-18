@@ -5,13 +5,14 @@ import {
     promptLoadingState,
     promptOutputState,
     ticketTypeState,
-} from "../state/atoms/prompt";
-import generateDescription from "../api/generateDescription";
+} from "../../state/atoms/prompt";
+import generateDescription from "../../api/generateDescription";
 import TicketType from "./TicketType";
 import AdditonalDetails from "./AdditonalDetails";
 import PromptInputTooltip from "./PromptInputTooltip";
-import iconPaths from "../constants/iconPaths";
-import SubmitBtnLoading from "./SubmitBtnLoading";
+import iconPaths from "../../constants/iconPaths";
+import SubmitBtnLoading from "../SubmitBtnLoading";
+import TemplateInput from "../TemplateInput";
 
 export default function PromptInput() {
     const [input, setInput] = useRecoilState(promptInputState);
@@ -73,6 +74,7 @@ export default function PromptInput() {
 
             <TicketType />
             <AdditonalDetails />
+            <TemplateInput />
         </div>
     );
 }
