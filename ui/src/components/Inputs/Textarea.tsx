@@ -6,6 +6,7 @@ interface Props {
     onChange?: React.ChangeEventHandler<HTMLTextAreaElement> | undefined;
     onKeyDown?: React.KeyboardEventHandler<HTMLTextAreaElement> | undefined;
     rows?: number | undefined;
+    className?: string | undefined;
 }
 
 export default function Textarea({
@@ -14,10 +15,14 @@ export default function Textarea({
     onChange,
     onKeyDown,
     rows,
+    className,
 }: Props) {
     return (
         <textarea
-            className="flex-1 text-2xl p-3 rounded-lg default-text-color"
+            className={
+                "text-2xl p-3 rounded-lg default-text-color " +
+                (className || "")
+            }
             placeholder={placeholder}
             rows={rows}
             value={value}
