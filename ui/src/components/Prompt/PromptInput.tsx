@@ -11,7 +11,7 @@ import TicketType from "./TicketType";
 import AdditonalDetails from "./AdditonalDetails";
 import PromptInputTooltip from "./PromptInputTooltip";
 import iconPaths from "../../constants/iconPaths";
-import SubmitBtnLoading from "../SubmitBtnLoading";
+import SubmitBtnLoading from "../Loading/SubmitBtnLoading";
 import TemplateInput from "../TemplateInput";
 
 export default function PromptInput() {
