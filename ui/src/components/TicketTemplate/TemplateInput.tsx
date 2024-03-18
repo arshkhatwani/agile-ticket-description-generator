@@ -26,7 +26,7 @@ export default function TemplateInput() {
             {includeTemplate ? (
                 <Textarea
                     placeholder="Please enter the expected format/template for the ticket description"
-                    rows={1}
+                    rows={3}
                     value={templateInput}
                     onChange={(e) => setTemplateInput(e.target.value)}
                 />
