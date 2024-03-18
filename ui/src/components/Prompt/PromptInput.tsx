@@ -13,6 +13,7 @@ import PromptInputTooltip from "./PromptInputTooltip";
 import iconPaths from "../../constants/iconPaths";
 import SubmitBtnLoading from "../Loading/SubmitBtnLoading";
 import TemplateInput from "../TemplateInput";
+import Textarea from "../Inputs/Textarea";
 
 export default function PromptInput() {
     const [input, setInput] = useRecoilState(promptInputState);
@@ -42,8 +43,7 @@ export default function PromptInput() {
     return (
         <div className="w-full flex flex-col items-center my-3">
             <div className="w-[80%] flex gap-2 input-container rounded-lg p-2">
-                <textarea
-                    className="flex-1 text-2xl p-3 rounded-lg default-text-color"
+                <Textarea
                     placeholder="Enter your ticket details"
                     rows={1}
                     value={input}
