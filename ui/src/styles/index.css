@@ -47,3 +47,11 @@ textarea:focus {
     border-color: var(--color-3);
     color: var(--color-3);
 }
+
+.input-container {
+    background-color: var(--color-2);
+}
+
+.submit-btn-bg {
+    background-color: var(--color-3);
+}
