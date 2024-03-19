@@ -88,6 +88,8 @@ Install dependencies
 npm install
 ```
 
+Create a `.env.local` file with the format provided in `ui/.env.local.example` and provide the necessary details
+
 Start application
 
 ```bash
