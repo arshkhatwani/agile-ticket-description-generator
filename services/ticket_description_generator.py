@@ -1,49 +1,63 @@
 import logging
+import boto3
+from typing import Tuple, Any
 from ai_models.claude_v3 import ClaudeV3
+from utils.misc_constants import TEXT_CONTENT_INDEX, EMPTY_RESPONSE
+from utils.static_prompts import StaticPrompts
+from utils.dynamic_prompts import DynamicPrompts
 
 logger = logging.getLogger()
-logger.setLevel("INFO")
-
-ACCEPTED_TICKET_TYPES = ('story', 'task', 'epic')
-
+logger.setLevel(logging.INFO)
 
 class TicketDescriptionGenerator:
     def __init__(self, client):
         self.client = client
         self.model = ClaudeV3(client=client)
 
-    def get_system_role(self):
-        role = "You are an agile ticket description generator whose responsibilities is to understand the task mentioned in the prompt and rewrite it following the conventions and you also have to write a definition of done for that task/prompt that is provided to you. You have to return every response in a well formatted markdown, it should just be markdown no need to wrap it with markdown code block. Please avoid using '#' as the main heading and use '##' instead."
+    @staticmethod
+    def get_system_role() -> str:
+        role = StaticPrompts.SYSTEM_ROLE_PROMPT.value
         return role
 
-    def get_updated_prompt(self, prompt: str, ticket_type: str, additional_details: bool, template: str):
-        if additional_details == True:
-            prompt = prompt + "\n" + "Include specific details under headings such as 'What' to describe the objective of each task, and 'Why' to provide rationale or user benefit where applicable."
 
-        if ticket_type in ACCEPTED_TICKET_TYPES:
-            prompt = f'Write an agile {ticket_type} description for the following content \n\n' + prompt
+    @staticmethod
+    def get_updated_prompt(prompt: str, ticket_type: str, additional_details: bool, template: str) -> str:
+        if additional_details:
+            prompt += StaticPrompts.ADDITIONAL_DETAILS_PROMPT.value
+        
+        prompt = DynamicPrompts.get_ticket_type_prompt(ticket_type=ticket_type, prompt=prompt)
+        prompt = DynamicPrompts.include_template_prompt(template=template, prompt=prompt)
 
-        if template:
-            prompt = prompt + "\n" + "Return the output in following format:\n" + template
-
-        logger.info('Updated prompt: %s', prompt)
+        logger.info(f'Updated prompt: {prompt}')
 
         return prompt
-
-    def generate_description(self, prompt: str, ticket_type: str, additional_details: bool, template: str):
-        system_role = self.get_system_role()
-        prompt = self.get_updated_prompt(
-            prompt, ticket_type, additional_details, template)
-
-        logger.info('Invoking model')
-        response = self.model.invoke_model(
-            system_role=system_role,
-            prompt=prompt
-        )
-        if response == {}:
+    
+    
+    @staticmethod
+    def invoke_model(system_role: str, prompt: str):
+        try:
+            logger.info('Invoking model')
+            
+            client = boto3.client('bedrock-runtime')
+            model = ClaudeV3(client=client)
+            
+            response = model.invoke_model(
+                system_role=system_role,
+                prompt=prompt
+            )
+            if response == EMPTY_RESPONSE:
+                return prompt, ''
+            logger.info('Received response successfully')
+            completion = response["content"][TEXT_CONTENT_INDEX]['text']
+            return prompt, completion
+        except Exception as e:
+            logger.error('Error while generating description : %s', e)
             return prompt, ''
 
-        logger.info('Received response successfully')
-        completion = response["content"][0]['text']
 
+    @staticmethod
+    def generate_description(prompt: str, ticket_type: str, additional_details: bool, template: str) -> Tuple[str, str]:
+        system_role = TicketDescriptionGenerator.get_system_role()
+        prompt = TicketDescriptionGenerator.get_updated_prompt(prompt, ticket_type, additional_details, template)
+        prompt, completion = TicketDescriptionGenerator.invoke_model(system_role=system_role, prompt=prompt)
         return prompt, completion

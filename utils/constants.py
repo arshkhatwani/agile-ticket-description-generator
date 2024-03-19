@@ -1,0 +1,1 @@
+ACCEPTED_TICKET_TYPES = ('story', 'task', 'epic')
