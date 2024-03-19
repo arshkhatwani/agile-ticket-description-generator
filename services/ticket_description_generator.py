@@ -49,7 +49,7 @@ class TicketDescriptionGenerator:
                 return prompt, ''
             logger.info('Received response successfully')
             completion = response["content"][TEXT_CONTENT_INDEX]['text']
-            prompt, completion
+            return prompt, completion
         except Exception as e:
             logger.error('Error while generating description : %s', e)
             return prompt, ''
@@ -59,5 +59,5 @@ class TicketDescriptionGenerator:
     def generate_description(prompt: str, ticket_type: str, additional_details: bool, template: str) -> Tuple[str, str]:
         system_role = TicketDescriptionGenerator.get_system_role()
         prompt = TicketDescriptionGenerator.get_updated_prompt(prompt, ticket_type, additional_details, template)
-        response = TicketDescriptionGenerator.invoke_model(system_role=system_role, prompt=prompt)
-        return prompt, ''
+        prompt, completion = TicketDescriptionGenerator.invoke_model(system_role=system_role, prompt=prompt)
+        return prompt, completion
