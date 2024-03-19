@@ -1,7 +1,5 @@
-import boto3
 import logging
 from flask import request, jsonify
-from ai_models.claude_v3 import ClaudeV3
 from services.ticket_description_generator import TicketDescriptionGenerator
 from services.prompt_logs_queue import PromptLogsQueue
 
@@ -9,7 +7,7 @@ logger = logging.getLogger()
 logger.setLevel("INFO")
 
 
-def generate_description(client=boto3.client('bedrock-runtime')):
+def generate_description():
     prompt = request.json.get('prompt')
     ticket_type = request.json.get('ticket_type', 'story')
     additional_details = request.json.get('additional_details', False)
@@ -21,7 +19,6 @@ def generate_description(client=boto3.client('bedrock-runtime')):
     logger.info('template: %s', template)
 
     prompt, output = TicketDescriptionGenerator.generate_description(
-            model=ClaudeV3(client=client),
             prompt=prompt,
             ticket_type=ticket_type,
             additional_details=additional_details,

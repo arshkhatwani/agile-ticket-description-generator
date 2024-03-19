@@ -1,5 +1,7 @@
 import logging
+import boto3
 from typing import Tuple, Any
+from ai_models.claude_v3 import ClaudeV3
 from utils.misc_constants import TEXT_CONTENT_INDEX, EMPTY_RESPONSE
 from utils.static_prompts import StaticPrompts
 from utils.dynamic_prompts import DynamicPrompts
@@ -8,6 +10,9 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 class TicketDescriptionGenerator:
+    def __init__(self, client):
+        self.client = client
+        self.model = ClaudeV3(client=client)
 
     @staticmethod
     def get_system_role() -> str:
@@ -29,10 +34,17 @@ class TicketDescriptionGenerator:
     
     
     @staticmethod
-    def invoke_model(model: Any, system_role: str, prompt: str):
+    def invoke_model(system_role: str, prompt: str):
         try:
             logger.info('Invoking model')
-            response = model.invoke_model(system_role=system_role, prompt=prompt)
+            
+            client = boto3.client('bedrock-runtime')
+            model = ClaudeV3(client=client)
+            
+            response = model.invoke_model(
+                system_role=system_role,
+                prompt=prompt
+            )
             if response == EMPTY_RESPONSE:
                 return prompt, ''
             logger.info('Received response successfully')
@@ -44,9 +56,8 @@ class TicketDescriptionGenerator:
 
 
     @staticmethod
-    def generate_description(model: Any, prompt: str, ticket_type: str, additional_details: bool, template: str) -> Tuple[str, str]:
+    def generate_description(prompt: str, ticket_type: str, additional_details: bool, template: str) -> Tuple[str, str]:
         system_role = TicketDescriptionGenerator.get_system_role()
         prompt = TicketDescriptionGenerator.get_updated_prompt(prompt, ticket_type, additional_details, template)
-        response = TicketDescriptionGenerator.invoke_model(model=model, system_role=system_role, prompt=prompt)
-        print('------------------>',response)
+        response = TicketDescriptionGenerator.invoke_model(system_role=system_role, prompt=prompt)
         return prompt, ''
