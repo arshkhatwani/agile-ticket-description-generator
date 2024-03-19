@@ -1,4 +1,4 @@
-import '../styles/submitBtnLoading.css';
+import '../../styles/submitBtnLoading.css';
 
 export default function SubmitBtnLoading() {
   return (

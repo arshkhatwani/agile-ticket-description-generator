@@ -1,6 +1,6 @@
 import { useRecoilState } from "recoil";
-import { ticketTypeState } from "../state/atoms/prompt";
-import ToggleBtn from "./ToggleBtn";
+import { ticketTypeState } from "../../state/atoms/prompt";
+import ToggleBtn from "../Buttons/ToggleBtn";
 
 const ticketTypes = [
     { name: "Story", value: "story" },

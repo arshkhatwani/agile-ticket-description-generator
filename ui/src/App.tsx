@@ -1,4 +1,4 @@
-import PromptInput from "./components/PromptInput";
+import PromptInput from "./components/Prompt/PromptInput";
 import PromptOutput from "./components/PromptOutput";
 import Title from "./components/Title";
 

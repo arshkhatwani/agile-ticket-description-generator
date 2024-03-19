@@ -24,3 +24,13 @@ export const additionalDetailsState = atom({
     key: "ticketAdditionalDetails",
     default: false,
 });
+
+export const includeTemplateState = atom({
+    key: "includeTemplate",
+    default: false,
+});
+
+export const templateInputState = atom({
+    key: "templateInput",
+    default: "",
+});

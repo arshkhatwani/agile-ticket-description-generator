@@ -1,6 +1,6 @@
 import { useRecoilState } from "recoil";
-import { additionalDetailsState } from "../state/atoms/prompt";
-import ToggleBtn from "./ToggleBtn";
+import { additionalDetailsState } from "../../state/atoms/prompt";
+import ToggleBtn from "../Buttons/ToggleBtn";
 
 export default function AdditonalDetails() {
     const [additionalDetails, setAdditionalDetails] = useRecoilState(

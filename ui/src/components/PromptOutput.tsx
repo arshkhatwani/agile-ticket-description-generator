@@ -1,7 +1,7 @@
 import { useRecoilState } from "recoil";
 import { promptLoadingState, promptOutputState } from "../state/atoms/prompt";
 import Markdown from "react-markdown";
-import Loading from "./Loading";
+import Loading from "./Loading/Loading";
 
 export default function PromptOutput() {
     const [output] = useRecoilState(promptOutputState);
