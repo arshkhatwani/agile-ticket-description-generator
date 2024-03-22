@@ -5,6 +5,7 @@ venv/
 .env
 *.log
 *.db
+flask_session/
 
 # React
 /node_modules/
@@ -22,4 +23,5 @@ venv/
 *.iml
 venv
 .serverless
-init_env.sh
+*.sh
+utils/*.json

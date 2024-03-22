@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logged In Successfully</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .info {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="info">
+        <h1>You've been logged in successfully!</h1>
+    </div>
+    <script>
+        setTimeout(()=> {
+            window.opener.postMessage({ is_authenticated: {{ is_authenticated | tojson }}, name : {{ name | tojson}}, email : {{ email | tojson}}, 
+            picture : {{ picture | tojson}}, token : {{ token | tojson}},  }, '*');
+            window.close();
+        }, 2000);
+    </script>
+</body>
+</html>

@@ -6,7 +6,6 @@ from services.prompt_logs_queue import PromptLogsQueue
 logger = logging.getLogger()
 logger.setLevel("INFO")
 
-
 def generate_description():
     prompt = request.json.get('prompt')
     ticket_type = request.json.get('ticket_type', 'story')
