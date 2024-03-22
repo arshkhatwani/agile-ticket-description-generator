@@ -38,7 +38,7 @@ export const templateInputState = atom({
 export const isLoggedInState = atom({
     key: "isLoggedIn",
     default: {
-        "logged_in": false,
+        "logged_in": null,
         "name": null,
         "email": null,
         "picture": null

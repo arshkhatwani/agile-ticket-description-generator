@@ -28,13 +28,7 @@ def auth_callback():
     sub, name, email, picture = _set_session_value(id_info=id_info)
     _login_or_register_user(email=email, name=name, picture=picture)
     
-    return jsonify({
-        "is_authenticated": "google_id" in session,
-        "name": name,
-        "email": email,
-        "picture": picture,
-        "token": token
-    })
+    return "google_id" in session, name, email, picture, token
 
 def auth_verify_token(token):
     try:
@@ -54,7 +48,7 @@ def auth_verify_token(token):
 
 def _get_session_credentials(flow):
     credentials = flow.credentials
-    token = credentials.token
+    token = credentials._id_token
     request_session = requests.session()
     cached_session = cachecontrol.CacheControl(request_session)
     token_request = google.auth.transport.requests.Request(session=cached_session)

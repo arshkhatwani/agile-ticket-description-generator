@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useRecoilState } from 'recoil';
@@ -6,10 +6,12 @@ import { isLoggedInState } from '../state/atoms/prompt';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { SERVER_URL } from '../constants/serverUrl';
+import UserDivLoading from "./Loading/UserDivLoading";
 
 export default function AuthenticationTool() {
     const [loggedInState, setLoggedInState] = useRecoilState(isLoggedInState);
     const { logged_in, name, email, picture } = loggedInState;
+    const [isLoginPending, setisLoginPending] = useState(true); // State for loading indicator
 
     useEffect(() => {
         // Check if the user is logged in based on the stored token
@@ -29,7 +31,12 @@ export default function AuthenticationTool() {
                 })
                 .catch(error => {
                     console.error('Error verifying token:', error);
+                })
+                .finally(() => {
+                    setisLoginPending(false); // Set loading state to false after API call completes
                 });
+        } else {
+            setisLoginPending(false); // No auth token, set loading state to false
         }
     }, []);
 
@@ -42,7 +49,7 @@ export default function AuthenticationTool() {
         const features = `width=${width},height=${height},left=${left},top=${top}`;
 
         const miniBrowser = window.open(authUrl, 'MiniBrowserWindow', features);
-
+        setisLoginPending(true);
         window.addEventListener('message', event => {
             if (event.source === miniBrowser) {
                 const { is_authenticated, name, email, picture, token } = event.data;
@@ -52,6 +59,7 @@ export default function AuthenticationTool() {
                     email: email,
                     picture: picture
                 });
+                setisLoginPending(false);
                 Cookies.set('auth_token', token, { expires: 7 });
             }
         });
@@ -59,22 +67,28 @@ export default function AuthenticationTool() {
 
     return (
         <div className="mt-6 w-full flex justify-end">
-            {logged_in ? (
-                <div className="w-[25%] flex items-center justify-start">
-                    <button className="text-white border border-white px-4 py-2 text-lg rounded-lg mr-8">
-                        <div className="flex items-center">
-                            <img src={picture} alt={name} className="w-12 h-12 rounded-full mr-2" />
-                            <span>{name}</span>
-                        </div>
-                    </button>
-                </div>
+            {isLoginPending ? (
+                <UserDivLoading />
             ) : (
-                <div className="w-[25%]">
-                    <button className="text-white border border-white px-4 py-2 text-lg rounded-lg mr-4" onClick={handleLoginButtonClick}>
-                        <FontAwesomeIcon icon={faGoogle} className="mr-2" />
-                        Sign in with Google
-                    </button>
-                </div>
+                <>
+                    {logged_in ? (
+                        <div className="w-[25%] flex items-center justify-start">
+                            <button className="text-white border border-white px-4 py-2 text-lg rounded-lg mr-8">
+                                <div className="flex items-center">
+                                    <img src={picture} alt={name} className="w-8 h-8 rounded-full mr-2" />
+                                    <span>{name}</span>
+                                </div>
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="w-[25%]">
+                            <button className="text-white border border-white px-4 py-2 text-lg rounded-lg mr-4" onClick={handleLoginButtonClick}>
+                                <FontAwesomeIcon icon={faGoogle} className="mr-2" />
+                                Sign in with Google
+                            </button>
+                        </div>
+                    )}
+                </>
             )}
         </div>
     );

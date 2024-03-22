@@ -4,10 +4,13 @@ from models.auth import User
 from utils.config import get_db_connection_string
 
 def get_db_session(db_connection_string=get_db_connection_string()):
-    engine = create_engine(db_connection_string)
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    return session
+    try:
+        engine = create_engine(db_connection_string)
+        Session = sessionmaker(bind=engine)
+        session = Session()
+        return session
+    except Exception as e:
+        raise e
 
 # Function to insert a new user into the users table
 def create_user(email, name, image_url, session=get_db_session(db_connection_string=get_db_connection_string(database_name='/authentication'))):
