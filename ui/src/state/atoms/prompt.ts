@@ -34,3 +34,13 @@ export const templateInputState = atom({
     key: "templateInput",
     default: "",
 });
+
+export const isLoggedInState = atom({
+    key: "isLoggedIn",
+    default: {
+        "logged_in": null,
+        "name": null,
+        "email": null,
+        "picture": null
+    },
+});
